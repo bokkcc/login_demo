@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @NoArgsConstructor
+
 public class Customers  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,4 +31,9 @@ public class Customers  {
     private String email;
 
 
+    public Customers( String name, String address, String email) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+    }
 }

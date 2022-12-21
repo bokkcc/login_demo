@@ -22,4 +22,9 @@ public class Vendors {
 
     private String address;
 
+
+    public Vendors(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
 }

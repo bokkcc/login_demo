@@ -32,4 +32,12 @@ public class Products {
 
     @ManyToOne
     private Vendors vendors;
+
+    public Products(String name, String description, Long price, Date shelfLife, Vendors vendors) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.shelfLife = shelfLife;
+        this.vendors = vendors;
+    }
 }
