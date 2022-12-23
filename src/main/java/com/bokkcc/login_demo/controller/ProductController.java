@@ -1,7 +1,7 @@
 package com.bokkcc.login_demo.controller;
 
 import com.bokkcc.login_demo.model.Product;
-import com.bokkcc.login_demo.repository.ProductsRepository;
+import com.bokkcc.login_demo.dao.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,14 +18,14 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
-    private ProductsRepository productsRepository;
+    private ProductDao productDao;
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable("id") Long id){
-        return productsRepository.findById(id).orElse(null);
+        return productDao.findById(id).orElse(null);
     }
 
     @GetMapping("/all")
     public List<Product> getAllProducts(){
-        return productsRepository.findAll();
+        return productDao.findAll();
     }
 }

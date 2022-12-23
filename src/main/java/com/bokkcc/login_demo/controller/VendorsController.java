@@ -1,7 +1,7 @@
 package com.bokkcc.login_demo.controller;
 
 import com.bokkcc.login_demo.model.Vendor;
-import com.bokkcc.login_demo.repository.VendorsRepository;
+import com.bokkcc.login_demo.dao.VendorDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,15 +17,15 @@ import java.util.List;
 @RequestMapping("/vendors")
 public class VendorsController {
 
-    private final VendorsRepository vendorsRepository;
+    private final VendorDao vendorDao;
 
     @Autowired
-    public VendorsController(VendorsRepository vendorsRepository) {
-        this.vendorsRepository = vendorsRepository;
+    public VendorsController(VendorDao vendorDao) {
+        this.vendorDao = vendorDao;
     }
 
     @GetMapping("/all")
     public List<Vendor> getAllVendors(){
-        return vendorsRepository.findAll();
+        return vendorDao.findAll();
     }
 }

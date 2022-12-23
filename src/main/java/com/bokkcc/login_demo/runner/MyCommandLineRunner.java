@@ -1,7 +1,7 @@
 package com.bokkcc.login_demo.runner;
 
 import com.bokkcc.login_demo.model.*;
-import com.bokkcc.login_demo.repository.*;
+import com.bokkcc.login_demo.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,21 +15,21 @@ import java.util.List;
  */
 @Component
 public class MyCommandLineRunner implements CommandLineRunner {
-    private final CustomersRepository customersRepository;
-    private final VendorsRepository vendorsRepository;
-    private final ProductsRepository productsRepository;
-    private final UserRepository userRepository;
+    private final CustomerDao customerDao;
+    private final VendorDao vendorDao;
+    private final ProductDao productDao;
+    private final UserDao userDao;
 
-    private final RoleRepository roleRepository;
+    private final RoleDao roleDao;
 
 
     @Autowired
-    public MyCommandLineRunner(CustomersRepository customersRepository, VendorsRepository vendorsRepository, ProductsRepository productsRepository, UserRepository userRepository, RoleRepository roleRepository) {
-        this.customersRepository = customersRepository;
-        this.vendorsRepository = vendorsRepository;
-        this.productsRepository = productsRepository;
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
+    public MyCommandLineRunner(CustomerDao customerDao, VendorDao vendorDao, ProductDao productDao, UserDao userDao, RoleDao roleDao) {
+        this.customerDao = customerDao;
+        this.vendorDao = vendorDao;
+        this.productDao = productDao;
+        this.userDao = userDao;
+        this.roleDao = roleDao;
     }
 
     @Override
@@ -51,18 +51,18 @@ public class MyCommandLineRunner implements CommandLineRunner {
         roleAdmin.setId(1L);
         roleUser.setId(2L);
 
-        if (customersRepository.findById(1L).isEmpty()) {
-            customersRepository.saveAll(customers);
+        if (customerDao.findById(1L).isEmpty()) {
+            customerDao.saveAll(customers);
         }
-        if (vendorsRepository.findById(1L).isEmpty()) {
-            vendorsRepository.saveAll(vendors);
+        if (vendorDao.findById(1L).isEmpty()) {
+            vendorDao.saveAll(vendors);
         }
-        if (productsRepository.findById(1L).isEmpty()) {
-            productsRepository.saveAll(products);
+        if (productDao.findById(1L).isEmpty()) {
+            productDao.saveAll(products);
         }
 
-        if (roleRepository.findById(1L).isEmpty()) {
-            roleRepository.saveAll(List.of(roleAdmin, roleUser));
+        if (roleDao.findById(1L).isEmpty()) {
+            roleDao.saveAll(List.of(roleAdmin, roleUser));
         }
 
         var users = List.of(
@@ -70,8 +70,8 @@ public class MyCommandLineRunner implements CommandLineRunner {
                 new User("cy-book", "love", true, true, true, true, List.of(roleUser))
         );
 
-        if (userRepository.findById(1L).isEmpty()) {
-            userRepository.saveAll(users);
+        if (userDao.findById(1L).isEmpty()) {
+            userDao.saveAll(users);
         }
 
 

@@ -1,7 +1,6 @@
 package com.bokkcc.login_demo.service;
 
-import com.bokkcc.login_demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bokkcc.login_demo.dao.UserDao;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,15 +14,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserDao userDao;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = userRepository.findUserByUsername(username);
+        var user = userDao.findUserByUsername(username);
         if(null == user){
             throw new UsernameNotFoundException("user not found");
         }

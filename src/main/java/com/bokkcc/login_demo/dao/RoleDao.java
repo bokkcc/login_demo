@@ -1,4 +1,4 @@
-package com.bokkcc.login_demo.repository;
+package com.bokkcc.login_demo.dao;
 
 import com.bokkcc.login_demo.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author : bokkcc
  * @since : 2022.12.22
  */
-public interface RoleRepository extends JpaRepository<Role,Long> {
+public interface RoleDao extends JpaRepository<Role,Long> {
 }
