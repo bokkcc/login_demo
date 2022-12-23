@@ -13,12 +13,12 @@ import java.util.Date;
  * @author : bokkcc
  * @since : 2022.12.20
  */
-@Entity
+@Entity(name = "t_order")
 @Data
 @NoArgsConstructor
-public class Orders {
+public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long num;
 
     private Long custId;

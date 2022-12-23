@@ -4,24 +4,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-
-import java.io.Serializable;
 
 /**
  * @author : bokkcc
  * @since : 2022.12.20
  */
-@Entity
+@Entity(name="t_customer")
 @Data
 @NoArgsConstructor
 
-public class Customers  {
+public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -31,7 +27,7 @@ public class Customers  {
     private String email;
 
 
-    public Customers( String name, String address, String email) {
+    public Customer(String name, String address, String email) {
         this.name = name;
         this.address = address;
         this.email = email;

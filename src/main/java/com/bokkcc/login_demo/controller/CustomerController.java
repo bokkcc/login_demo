@@ -1,8 +1,7 @@
 package com.bokkcc.login_demo.controller;
 
-import com.bokkcc.login_demo.model.Customers;
+import com.bokkcc.login_demo.model.Customer;
 import com.bokkcc.login_demo.repository.CustomersRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +20,9 @@ public class CustomerController {
     public CustomerController(CustomersRepository customersRepository) {
         this.customersRepository = customersRepository;
     }
+
     @GetMapping("/all")
-    public List<Customers> findAllCustomer(){
+    public List<Customer> findAllCustomer() {
         return customersRepository.findAll();
     }
 }

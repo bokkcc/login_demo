@@ -4,18 +4,16 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
  * @author : bokkcc
  * @since : 2022.12.20
  */
-@Entity
+@Entity(name = "t_vendor")
 @Data
 @NoArgsConstructor
-public class Vendors {
+public class Vendor {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -23,7 +21,7 @@ public class Vendors {
     private String address;
 
 
-    public Vendors(String name, String address) {
+    public Vendor(String name, String address) {
         this.name = name;
         this.address = address;
     }

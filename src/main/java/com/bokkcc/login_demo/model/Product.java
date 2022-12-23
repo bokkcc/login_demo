@@ -1,12 +1,10 @@
 package com.bokkcc.login_demo.model;
 
 import jakarta.persistence.*;
-import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 
@@ -15,13 +13,13 @@ import java.util.Date;
  * @since : 2022.12.20
  */
 
-@Entity
+@Entity(name = "t_product")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Products {
+public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -31,9 +29,9 @@ public class Products {
     private Date shelfLife;
 
     @ManyToOne
-    private Vendors vendors;
+    private Vendor vendors;
 
-    public Products(String name, String description, Long price, Date shelfLife, Vendors vendors) {
+    public Product(String name, String description, Long price, Date shelfLife, Vendor vendors) {
         this.name = name;
         this.description = description;
         this.price = price;

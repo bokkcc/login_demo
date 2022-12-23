@@ -1,6 +1,6 @@
 package com.bokkcc.login_demo.controller;
 
-import com.bokkcc.login_demo.model.Vendors;
+import com.bokkcc.login_demo.model.Vendor;
 import com.bokkcc.login_demo.repository.VendorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,7 @@ public class VendorsController {
     }
 
     @GetMapping("/all")
-    public List<Vendors> getAllVendors(){
+    public List<Vendor> getAllVendors(){
         return vendorsRepository.findAll();
     }
 }

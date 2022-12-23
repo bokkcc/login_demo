@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
  * @author : bokkcc
  * @since : 2022.12.20
  */
-@Entity
+@Entity(name="t_order_item")
 @Data
 @NoArgsConstructor
-public class OrderItems {
+public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderItem;
 
 
@@ -23,9 +23,9 @@ public class OrderItems {
     private Long itemPrice;
 
     @ManyToOne
-    private Products products;
+    private Product product;
 
     @ManyToOne
     @Id
-    private Orders orders;
+    private Order order;
 }

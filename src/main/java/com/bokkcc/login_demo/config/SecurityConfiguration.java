@@ -11,17 +11,14 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.NonceExpiredException;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.sql.DataSource;
 
 /**
  * @author : bokkcc
@@ -31,44 +28,20 @@ import javax.sql.DataSource;
 public class SecurityConfiguration {
 
     @Autowired
-    private DataSource dataSource;
+    private UserDetailsService userService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
     }
 
 
     @Bean
-    JdbcUserDetailsManager jdbcUserDetailsManager(AuthenticationManagerBuilder auth) {
+    UserDetailsService configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        var manager = new JdbcUserDetailsManager(dataSource);
+        auth.userDetailsService(userService);
 
-        var admin = User.builder()
-                .username("admin")
-                .password("love")
-                .passwordEncoder(passwordEncoder()::encode)
-                .roles("admin")
-                .build();
-
-        var user = User.builder()
-                .username("role@bokkcc.com")
-                .password("love")
-                .passwordEncoder(passwordEncoder()::encode)
-                .roles("user")
-                .build();
-
-        if (!manager.userExists(admin.getUsername())) {
-            manager.createUser(admin);
-        }
-
-        if (!manager.userExists(user.getUsername())) {
-            manager.createUser(user);
-
-        }
-
-
-        return manager;
+        return userService;
     }
 
     @Bean
@@ -78,7 +51,7 @@ public class SecurityConfiguration {
                         // 注意顺序，上面的优先级更高
                         .requestMatchers("/customers/**", "/vendors/**").hasRole("admin")
                         .requestMatchers("/products/**").hasAnyRole("admin", "user")
-                        .requestMatchers("/css/**","/js/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**").permitAll()
                         .anyRequest()
                         .authenticated()
                 )
@@ -127,15 +100,13 @@ public class SecurityConfiguration {
                         .clearAuthentication(true)
                         .invalidateHttpSession(true)
                 )
-                .exceptionHandling(httpSecurityExceptionHandlingConfigurer -> {
-                    httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> {
-                        response.setContentType("application/json;charset=utf-8");
-                        var writer = response.getWriter();
-                        writer.write(new ObjectMapper().writeValueAsString(RespBean.error("尚未登录，请登录。")));
-                        writer.flush();
-                        writer.close();
-                    });
-                })
+                .exceptionHandling(it -> it.authenticationEntryPoint((request, response, authException) -> {
+                    response.setContentType("application/json;charset=utf-8");
+                    var writer = response.getWriter();
+                    writer.write(new ObjectMapper().writeValueAsString(RespBean.error("尚未登录，请登录。")));
+                    writer.flush();
+                    writer.close();
+                }))
                 .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();

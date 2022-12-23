@@ -1,6 +1,6 @@
 package com.bokkcc.login_demo.repository;
 
-import com.bokkcc.login_demo.model.Products;
+import com.bokkcc.login_demo.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @since : 2022.12.20
  */
 
-public interface ProductsRepository extends JpaRepository<Products, Long> {
+public interface ProductsRepository extends JpaRepository<Product, Long> {
 
 }
