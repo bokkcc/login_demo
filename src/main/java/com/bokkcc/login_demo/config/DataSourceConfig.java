@@ -17,7 +17,7 @@ public class DataSourceConfig {
         return DataSourceBuilder.create()
                 .username("bokkcc")
                 .password("using#001")
-                .url("jdbc:mysql:///marker")
+                .url("jdbc:h2:mem:db")
                 .build();
     }
 }

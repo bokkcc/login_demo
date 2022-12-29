@@ -6,4 +6,5 @@ spring:
       hibernate:
         show_sql: false
         format_sql: false
-        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
+#        dialect: org.hibernate.dialect.MySQLDialect
